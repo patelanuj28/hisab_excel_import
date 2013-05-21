@@ -1,0 +1,21 @@
+mkdir -p workaround_set
+chown -R amandabackup:disk workaround_set
+chmod -R 700 workaround_set/
+ls -lsrt
+
+for((i =1; i<100; i++)); do mkdir slot$i; done
+
+
+mkdir /var/lib/amanda/vtapes/workaround_set
+chmod -R 750 /var/lib/amanda/workaround_set
+cd /var/lib/amanda/vtapes/workaround_set
+
+
+for((i =1; i<100; i++)); do ln -s /mnt/datadomain/vtapes/workaround_set/slot$i slot$i; done
+ln -s slot1 data
+
+
+//Not required
+for ((i =1; i<10; i++)); do amlabel workaround_set workaround_set-AA-00$i slot $i; done
+
+
